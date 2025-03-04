@@ -116,7 +116,6 @@ classes = os.listdir(PATH)
 for idx, label in enumerate(classes):
     print("label",label)
     for i, file in enumerate(os.listdir(os.path.join(PATH, label))):
-       
         signal, sample_rate = librosa.load(os.path.join(PATH, label, file), sr=44100, mono=True)
         
         audio = nr.reduce_noise(y=signal, sr=sample_rate, stationary=True, prop_decrease=0.9)
@@ -140,7 +139,7 @@ X = df.drop(columns=['label'], axis=0)
 Y = df['label']
 
 
-pca = PCA(n_components=100)
+pca = PCA(n_components=150)
 X = pca.fit_transform(X)
 
 x_train, x_test, y_train, y_test = train_test_split(X, Y, test_size=0.2, random_state=42)
