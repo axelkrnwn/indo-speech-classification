@@ -5,8 +5,9 @@ from scipy import fftpack as fft
 from scipy.io import wavfile
 from scipy.signal import get_window, resample, butter, lfilter
 import os
+from sklearn.preprocessing import MinMaxScaler
 from sklearn.decomposition import PCA
-from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.model_selection import StratifiedKFold, train_test_split, GridSearchCV
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report
 import pandas as pd
@@ -138,6 +139,8 @@ df['label'] = labels
 X = df.drop(columns=['label'], axis=0)
 Y = df['label']
 
+scaler = MinMaxScaler()
+X = scaler.fit_transform(X)
 
 pca = PCA(n_components=100)
 X = pca.fit_transform(X)
@@ -147,7 +150,7 @@ x_train, x_test, y_train, y_test = train_test_split(X, Y, test_size=0.2, random_
 model = RandomForestClassifier()
 
 param_grid = {
-    'n_estimators':[100],
+    'n_estimators':[None, 200],
     'criterion': ['gini', 'entropy', 'log_loss'],
     'max_features': ['sqrt', 'log2'], 
     'max_depth': [None,10,20],
@@ -158,4 +161,6 @@ gsv = GridSearchCV(model, param_grid)
 gsv.fit(x_train, y_train)
 y_pred = gsv.predict(x_test)
 print(classification_report(y_test, y_pred))
+print(gsv.best_estimator_)
+print(gsv.best_params_)
 
