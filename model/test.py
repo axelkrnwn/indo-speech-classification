@@ -123,7 +123,7 @@ for idx, label in enumerate(classes):
         
         
         spectrogram = np.abs(librosa.stft(audio, n_fft=2048, hop_length=512))
-        cc = mfcc(audio, sample_rate, 2048, 40, 40)
+        cc = mfcc(audio, sample_rate, 2048, 25, 40)
         
         cepstral_coefficients.append(cc.flatten())
         labels.append(idx)
@@ -139,7 +139,7 @@ X = df.drop(columns=['label'], axis=0)
 Y = df['label']
 
 
-pca = PCA(n_components=150)
+pca = PCA(n_components=100)
 X = pca.fit_transform(X)
 
 x_train, x_test, y_train, y_test = train_test_split(X, Y, test_size=0.2, random_state=42)
