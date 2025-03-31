@@ -10,6 +10,7 @@ def f_high(y,sr):
     return yf
 
 def preprocess(audio, sample_rate):
+    audio =librosa.effects.trim(audio, top_db=10)[0]
     audio = nr.reduce_noise(y=audio, sr=sample_rate, stationary=True, prop_decrease=0.9)
     audio = librosa.resample(audio, orig_sr=sample_rate, target_sr=22050)
     return audio
