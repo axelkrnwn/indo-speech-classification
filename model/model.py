@@ -1,6 +1,5 @@
 from sklearn.metrics import classification_report
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import GridSearchCV
 import loader
 import numpy as np
 

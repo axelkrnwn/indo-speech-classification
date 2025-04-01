@@ -3,7 +3,6 @@ import preprocess
 import os
 import librosa
 import pickle
-from matplotlib import pyplot as plt
 
 def load_audio(path):
     """
@@ -16,7 +15,7 @@ def load_audio(path):
 
     Returns
     -------
-    signal: numpy.ndarray
+    signal: np.ndarray
         The loaded audio signal.
     sample_rate: int
         The audio signal sampling rate.
@@ -31,9 +30,9 @@ def load_all():
 
     Returns
     -------
-    cepstral_coefficients: numpy.ndarray
+    cepstral_coefficients: np.ndarray
         The list of audio in cepstral coefficient form after feature extration using mfcc.
-    labels: numpy.ndarray
+    labels: np.ndarray
         The list of labels.
     """
     cepstral_coefficients = []

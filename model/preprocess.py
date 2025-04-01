@@ -75,6 +75,6 @@ def reduce_dimension(X):
     X: np.ndarray
         The transformed feature matrix with reduced dimensions.
     """
-    pca = PCA(n_components=200)
+    pca = PCA(n_components=100)
     X = pca.fit_transform(X)
     return X

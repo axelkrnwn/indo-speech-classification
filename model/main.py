@@ -17,4 +17,4 @@ x_train, x_test, y_train, y_test = train_test_split(X, Y, test_size=0.2, random_
 clf = model.Model()
 clf.train(x_train, y_train)
 clf.evaluate(x_test, y_test)
-# loader.save_model(clf.model)
+loader.save_model(clf.model)

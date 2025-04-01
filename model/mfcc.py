@@ -6,9 +6,6 @@ def framing(audio, sample_rate, hop_size, fft_size):
     """
     Splits an audio signal into overlapping frames for further processing.
 
-    This function pads the audio signal using a reflection mode, then segments
-    it into frames of a specified size with a given hop size.
-
     Parameters
     ----------
     audio: np.ndarray
