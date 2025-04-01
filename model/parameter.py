@@ -1,6 +1,5 @@
 grid = {
-    'n_estimators':[200, 300],
-    # 'criterion': ['gini', 'entropy', 'log_loss'],
+    'n_estimators':[200],
     'max_features': ['log2'], 
     'max_depth': [None],
     'min_samples_split': [3],
