@@ -26,6 +26,14 @@ The preprocessing technique that used in this dataset are noise reduction using 
 
 ## Feature Extraction (MFCC)
 
+MFCC is a feature extraction technique that represents the audio frequency in a human way of hearing. The major reason why we use MFCC is because interpretation of each frequency is different in human hearing. MFCC consists of 6 steps. 
+1. Pre-emphasis
+2. Audio framing
+3. Audio windowing
+4. Mel filterbank
+5. Audio Log
+6. Discrete Cosine Transform
+
 ## Data Splitting and PCA
 
 ## Modelling and Evaluation
