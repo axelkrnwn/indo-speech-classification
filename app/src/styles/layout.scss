@@ -1,0 +1,13 @@
+nav{
+    box-sizing: border-box;
+    padding: 3vh 2vw;
+    width: 100vw;
+    display: flex;
+    justify-content: right;
+    position: fixed;
+    h4{
+        color: var(--secondary);
+        font-size: 1.1rem;
+        font-family: 'Poppins-Light', sans-serif;
+    }
+}
