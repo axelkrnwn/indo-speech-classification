@@ -17,6 +17,7 @@
     meteorStyles = styles;
 
   };
+  
   onMount(() => {
     changeMeteors(number);
   });
