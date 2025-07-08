@@ -6,6 +6,24 @@
     "main"
   ],
   "permissions": [
-    "core:default"
+    "core:default",
+    "shell:default",
+    "shell:allow-spawn",
+    "fs:default",
+    "fs:allow-write-file",
+    {
+      "identifier": "fs:scope",
+      "allow": [{ "path": "$APPDATA/*" }]
+    },
+    {
+      "identifier": "shell:allow-execute",
+      "allow": [
+        {
+          "name": "test.exe",
+          "sidecar": true
+        }
+      ]
+    },
+    "shell:allow-open"
   ]
 }

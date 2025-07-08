@@ -1,6 +1,7 @@
 <script lang="ts">
     import Button from "@/lib/components/ui/button/button.svelte";
     import Meteors from "@/lib/components/ui/meteors.svelte";
+  import { sendBlobAsFile } from "@/lib/sender";
   import { onMount } from "svelte";
 
     let media:Blob[] = $state([]);
@@ -11,6 +12,7 @@
     let source;
     let dataArray:Uint8Array;
     let silenceTimeout = 2000;
+    let result: string = $state('hello')
 
     const getVolume = () => {
         analyser.getByteFrequencyData(dataArray)
@@ -32,6 +34,8 @@
             mediaRecorder.onstop = async () => {
                 const blob = new Blob(media, { type: 'audio/webm' });
                 media = [];
+                const process = await sendBlobAsFile(blob);
+                result = JSON.stringify(process);
                 isRecording = false;
                 //TODO: send to model here
             };
@@ -80,7 +84,9 @@
     <Meteors number={50}/>
     <div class="absolute left-1/2 top-1/2 flex justify-center items-center w-2/5 h-2/5 gap-5 flex-col -translate-x-1/2 -translate-y-1/2">
         <h1 class="w-full text-center text-3xl">Learning indonesia word by Audio</h1>
-        <Button onclick={onStart} class="px-5 w-2/5 cursor-pointer hover:bg-white hover:text-[var(--secondary)] hover:border-[var(--secondary)] border-2 transition-all duration-500">Start Game</Button>
+        {isRecording}
+        {result}
+        <Button onclick={onStart} class="px-5 w-2/5 cursor-pointer hover:bg-white hover:text-[var(--secondary)] hover:border-[var(--secondary)] border-1 transition-all duration-500">Start Game</Button>
         <p class="text-[var(--secondary)] hover:scale-125 transition-all cursor-pointer">How to <b>Play</b>?</p>
     </div>
 </div>
