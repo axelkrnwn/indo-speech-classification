@@ -13,6 +13,7 @@ node_modules
 dist
 dist-ssr
 *.local
+build
 
 # Editor directories and files
 .vscode/*
@@ -29,3 +30,4 @@ dist-ssr
 # will have compiled files and executables
 /target/
 /gen/schemas
+*/binaries

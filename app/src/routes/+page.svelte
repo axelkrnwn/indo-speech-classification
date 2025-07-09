@@ -12,7 +12,7 @@
     let source;
     let dataArray:Uint8Array;
     let silenceTimeout = 2000;
-    let result: string = $state('hello')
+    let result: string = $state('')
 
     const getVolume = () => {
         analyser.getByteFrequencyData(dataArray)
@@ -31,32 +31,20 @@
             const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
             mediaRecorder = new MediaRecorder(stream);
             mediaRecorder.ondataavailable = (e) => media.push(e.data);
-            mediaRecorder.onstop = async () => {
-                const blob = new Blob(media, { type: 'audio/webm' });
-                media = [];
-                const process = await sendBlobAsFile(blob);
-                result = JSON.stringify(process);
-                isRecording = false;
-                //TODO: send to model here
-            };
-            console.log('created')
-
+            
             audioContext = new AudioContext();
             source = audioContext.createMediaStreamSource(stream);
             analyser = audioContext.createAnalyser();
             analyser.fftSize = 512;
             dataArray = new Uint8Array(analyser.fftSize);
             source.connect(analyser);
-
+            mediaRecorder.start();
+            console.log('start')
+            isRecording = true
         }
     }
 
     const track = () => {
-        if (mediaRecorder && !isRecording) {
-            console.log('started')
-            mediaRecorder.start();
-            isRecording = true
-        }
 
         if (isRecording){
             let volume = getVolume()
@@ -64,9 +52,15 @@
                 console.log('keep going')
                 isRecording = true
                 clearTimeout(silenceTimeout);
-                silenceTimeout = setTimeout(() => {
-                    mediaRecorder.stop();
+                silenceTimeout = setTimeout(async () => {
                     console.log('stopped')
+                    const blob = new Blob(media, { type: 'audio/webm' });
+                    media = [];
+                    isRecording = false
+                    let res = await sendBlobAsFile(blob) 
+                    result = JSON.stringify(res);
+                    console.log('done predict', result)
+                    
                 }, 2000);
             }
         }

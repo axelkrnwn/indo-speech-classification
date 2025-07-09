@@ -7,8 +7,10 @@ import model
 import pandas as pd
 import numpy as np
 
-if len(sys.argv) > 0:
-    path = sys.argv[0]
+if len(sys.argv) > 1:
+
+    path = sys.argv[1]
+    print(path)
     signal, sample_rate = loader.load_audio(path)
     audio = preprocess.preprocess(signal, sample_rate)
     cc = mfcc.mfcc(audio, sample_rate, 2048, 25, 40).flatten()
@@ -20,7 +22,9 @@ if len(sys.argv) > 0:
     loaded_model = model.Model()
     res = loaded_model.test(X)
     idx = np.argmax(res)
-    if np.abs(res[idx] - 0.5) < 0.1:
+
+    if np.abs(res[0][idx] - 0.5) < 0.1:
         print("Unrecognized")
     else:
-        print(classes[np.argmax(res)])
+        print(classes[np.argmax(res[0])])
+print('No audio')
