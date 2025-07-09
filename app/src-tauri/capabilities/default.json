@@ -19,7 +19,7 @@
       "identifier": "shell:allow-execute",
       "allow": [
         {
-          "name": "test.exe",
+          "name": "binaries/test",
           "sidecar": true
         }
       ]

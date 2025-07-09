@@ -24,7 +24,7 @@
     }
   },
   "bundle": {
-    "externalBin": ["binaries/test.exe"],
+    "externalBin": ["binaries/test"],
     "active": true,
     "targets": "all",
     "icon": [
