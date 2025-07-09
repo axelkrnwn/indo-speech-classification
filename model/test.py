@@ -27,4 +27,5 @@ if len(sys.argv) > 1:
         print("Unrecognized")
     else:
         print(classes[np.argmax(res[0])])
-print('No audio')
+else:
+    print('No audio')
