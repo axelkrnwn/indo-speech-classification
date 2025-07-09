@@ -1,4 +1,5 @@
 from scipy.signal import resample
+import loader
 import librosa
 import noisereduce as nr
 from sklearn.preprocessing import MinMaxScaler
@@ -40,7 +41,7 @@ def resampling(cepstral_coefficients):
         A list of resampled cepstral coefficient sequences with uniform length.
     """
     length_cc = [len(cc) for cc in cepstral_coefficients]
-    return [resample(x, num=int(max(length_cc))) for x in cepstral_coefficients]
+    return [resample(x, num=3560) for x in cepstral_coefficients]
 
 def normalize(X):
     """
@@ -56,9 +57,17 @@ def normalize(X):
     X: np.ndarray
         The normalized feature matrix.
     """
-
-    scaler = MinMaxScaler()
-    X = scaler.fit_transform(X)
+    try:
+        scaler = loader.load_model('scaler')
+    except:
+        scaler = MinMaxScaler() 
+    
+    if len(X) == 1:
+        X = scaler.transform(X)
+    else:
+        print(X.shape)
+        X = scaler.fit_transform(X)
+        loader.save_model(scaler, 'scaler')
     return X
 
 def reduce_dimension(X):
@@ -75,6 +84,14 @@ def reduce_dimension(X):
     X: np.ndarray
         The transformed feature matrix with reduced dimensions.
     """
-    pca = PCA(n_components=150)
-    X = pca.fit_transform(X)
+    try:
+        pca = loader.load_model('pca')
+    except:
+        pca = PCA(n_components=150)
+    
+    if min(X.shape) == 1:
+        X = pca.transform(X)
+    else:
+        X = pca.fit_transform(X)
+        loader.save_model(pca, 'pca')
     return X

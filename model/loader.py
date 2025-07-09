@@ -52,7 +52,7 @@ def load_all():
 
     return cepstral_coefficients, labels
 
-def save_model(model):
+def save_model(model, name):
     """
     Save the model using pickle library.
 
@@ -61,19 +61,19 @@ def save_model(model):
     model: RandomForestClassifier | None
         The model to be saved.
     """
-    with open('model.pkl','wb') as f:
+    with open(f'{name}.pkl','wb') as f:
         pickle.dump(model,f)
 
-def load_model():
+def load_model(name):
     """
     Load the model file using pickle library.
 
     Returns
     -------
-    model: RandomForestClassifier
+    model: any
         The loaded model.
     """
     global model
-    with open('model.pkl', 'rb') as f:
+    with open(f'{name}.pkl', 'rb') as f:
         model = pickle.load(f)
     return model

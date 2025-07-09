@@ -30,7 +30,7 @@ class Model:
         to be trained.
         """
         try:
-            self.model = loader.load_model()
+            self.model = loader.load_model('model')
         except:
             self.model = None
 
