@@ -35,5 +35,7 @@ MFCC is a feature extraction technique that represents the audio frequency in a 
 6. Discrete Cosine Transform
 
 ## Data Splitting and PCA
+Data splitting used to split the dataset into 2 parts, training set and testing set with ratio 8:2. Then, because the data has high dimentionality, PCA (principal component analysis were used to reduce the difficulty for the model to understand the data.
 
 ## Modelling and Evaluation
+The model that used are random forest classifier and the evaluatioon that used are basic evaluation such as accuracy, f1-score, recall, and precision. Overall the model gains accuracy >= 80%.
